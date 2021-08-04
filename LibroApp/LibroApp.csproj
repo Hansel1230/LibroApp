@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FomDataGridView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FomDataGridView.Designer.cs">
+      <DependentUpon>FomDataGridView.cs</DependentUpon>
+    </Compile>
     <Compile Include="FomMantAutores.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FomDataGridView.resx">
+      <DependentUpon>FomDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FomMantAutores.resx">
       <DependentUpon>FomMantAutores.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +114,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinesLayer\BusinesLayer.csproj">
+      <Project>{50bd41fc-96c5-4aab-b3d6-fe1369eef5b6}</Project>
+      <Name>BusinesLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

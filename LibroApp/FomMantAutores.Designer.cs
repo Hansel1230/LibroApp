@@ -33,7 +33,7 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atrsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LblAutor = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnAgregar = new System.Windows.Forms.Button();
             this.LblNombre = new System.Windows.Forms.Label();
             this.LblApellido = new System.Windows.Forms.Label();
             this.LblCorreo = new System.Windows.Forms.Label();
@@ -52,7 +52,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.58035F));
             this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.LblAutor, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.BtnAgregar, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.LblNombre, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.LblApellido, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.LblCorreo, 0, 4);
@@ -96,6 +96,7 @@
             this.atrsToolStripMenuItem.Name = "atrsToolStripMenuItem";
             this.atrsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.atrsToolStripMenuItem.Text = "Atras";
+            this.atrsToolStripMenuItem.Click += new System.EventHandler(this.atrsToolStripMenuItem_Click);
             // 
             // LblAutor
             // 
@@ -112,18 +113,19 @@
             this.LblAutor.Text = "Autor";
             this.LblAutor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button1
+            // BtnAgregar
             // 
-            this.button1.BackColor = System.Drawing.Color.OldLace;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.Font = new System.Drawing.Font("MS PGothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.DarkKhaki;
-            this.button1.Location = new System.Drawing.Point(113, 334);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(195, 40);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Agregar";
-            this.button1.UseVisualStyleBackColor = false;
+            this.BtnAgregar.BackColor = System.Drawing.Color.OldLace;
+            this.BtnAgregar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnAgregar.Font = new System.Drawing.Font("MS PGothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAgregar.ForeColor = System.Drawing.Color.DarkKhaki;
+            this.BtnAgregar.Location = new System.Drawing.Point(113, 334);
+            this.BtnAgregar.Name = "BtnAgregar";
+            this.BtnAgregar.Size = new System.Drawing.Size(195, 40);
+            this.BtnAgregar.TabIndex = 2;
+            this.BtnAgregar.Text = "Agregar";
+            this.BtnAgregar.UseVisualStyleBackColor = false;
+            this.BtnAgregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
             // LblNombre
             // 
@@ -168,6 +170,8 @@
             this.TxtNombre.Name = "TxtNombre";
             this.TxtNombre.Size = new System.Drawing.Size(195, 20);
             this.TxtNombre.TabIndex = 6;
+            this.TxtNombre.Click += new System.EventHandler(this.TxtNombre_Click);
+            this.TxtNombre.Leave += new System.EventHandler(this.TxtNombre_Leave);
             // 
             // TxtApellido
             // 
@@ -176,6 +180,8 @@
             this.TxtApellido.Name = "TxtApellido";
             this.TxtApellido.Size = new System.Drawing.Size(195, 20);
             this.TxtApellido.TabIndex = 7;
+            this.TxtApellido.Click += new System.EventHandler(this.TxtApellido_Click);
+            this.TxtApellido.Leave += new System.EventHandler(this.TxtApellido_Leave);
             // 
             // TxtCorreo
             // 
@@ -184,6 +190,8 @@
             this.TxtCorreo.Name = "TxtCorreo";
             this.TxtCorreo.Size = new System.Drawing.Size(195, 20);
             this.TxtCorreo.TabIndex = 8;
+            this.TxtCorreo.Click += new System.EventHandler(this.TxtCorreo_Click);
+            this.TxtCorreo.Leave += new System.EventHandler(this.TxtCorreo_Leave);
             // 
             // FomMantAutores
             // 
@@ -194,6 +202,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FomMantAutores";
             this.Text = "FomMantAutores";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FomMantAutores_FormClosing);
             this.Load += new System.EventHandler(this.FomMantAutores_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -210,7 +219,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem atrsToolStripMenuItem;
         private System.Windows.Forms.Label LblAutor;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnAgregar;
         private System.Windows.Forms.Label LblNombre;
         private System.Windows.Forms.Label LblApellido;
         private System.Windows.Forms.Label LblCorreo;

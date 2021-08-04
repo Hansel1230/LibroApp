@@ -96,6 +96,7 @@
             this.atrasToolStripMenuItem.Name = "atrasToolStripMenuItem";
             this.atrasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.atrasToolStripMenuItem.Text = "Atras";
+            this.atrasToolStripMenuItem.Click += new System.EventHandler(this.atrasToolStripMenuItem_Click);
             // 
             // LblEditorial
             // 
@@ -160,6 +161,7 @@
             this.BtnAgregar.TabIndex = 5;
             this.BtnAgregar.Text = "Agregar";
             this.BtnAgregar.UseVisualStyleBackColor = false;
+            this.BtnAgregar.Click += new System.EventHandler(this.BtnAgregar_Click);
             // 
             // TxtNombre
             // 
@@ -168,6 +170,8 @@
             this.TxtNombre.Name = "TxtNombre";
             this.TxtNombre.Size = new System.Drawing.Size(195, 20);
             this.TxtNombre.TabIndex = 6;
+            this.TxtNombre.Click += new System.EventHandler(this.TxtNombre_Click);
+            this.TxtNombre.Leave += new System.EventHandler(this.TxtNombre_Leave);
             // 
             // TxtTelefono
             // 
@@ -176,6 +180,8 @@
             this.TxtTelefono.Name = "TxtTelefono";
             this.TxtTelefono.Size = new System.Drawing.Size(195, 20);
             this.TxtTelefono.TabIndex = 7;
+            this.TxtTelefono.Click += new System.EventHandler(this.TxtTelefono_Click);
+            this.TxtTelefono.Leave += new System.EventHandler(this.TxtTelefono_Leave);
             // 
             // TxtPais
             // 
@@ -184,6 +190,8 @@
             this.TxtPais.Name = "TxtPais";
             this.TxtPais.Size = new System.Drawing.Size(195, 20);
             this.TxtPais.TabIndex = 8;
+            this.TxtPais.Click += new System.EventHandler(this.TxtPais_Click);
+            this.TxtPais.Leave += new System.EventHandler(this.TxtPais_Leave);
             // 
             // FomMantEditorial
             // 
@@ -194,6 +202,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FomMantEditorial";
             this.Text = "FomMantEditorial";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FomMantEditorial_FormClosing);
+            this.Load += new System.EventHandler(this.FomMantEditorial_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

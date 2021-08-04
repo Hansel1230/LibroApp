@@ -86,6 +86,7 @@
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // BtnAutores
             // 
@@ -99,6 +100,7 @@
             this.BtnAutores.TabIndex = 1;
             this.BtnAutores.Text = "Autores";
             this.BtnAutores.UseVisualStyleBackColor = false;
+            this.BtnAutores.Click += new System.EventHandler(this.BtnAutores_Click);
             // 
             // BtnEditoriales
             // 
@@ -112,6 +114,7 @@
             this.BtnEditoriales.TabIndex = 2;
             this.BtnEditoriales.Text = "Editoriales";
             this.BtnEditoriales.UseVisualStyleBackColor = false;
+            this.BtnEditoriales.Click += new System.EventHandler(this.BtnEditoriales_Click);
             // 
             // BtnLibros
             // 
@@ -125,6 +128,7 @@
             this.BtnLibros.TabIndex = 3;
             this.BtnLibros.Text = "Libros";
             this.BtnLibros.UseVisualStyleBackColor = false;
+            this.BtnLibros.Click += new System.EventHandler(this.BtnLibros_Click);
             // 
             // FomPantallaPrincipal
             // 

@@ -16,7 +16,7 @@ namespace LibroApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FomPantallaPrincipal());
+            Application.Run(FomPantallaPrincipal.Instancia);
         }
     }
 }

@@ -10,16 +10,68 @@ using System.Windows.Forms;
 
 namespace LibroApp
 {
-    public partial class FomPantallaPrincipal : Form
+    public sealed partial class FomPantallaPrincipal : Form
     {
-        public FomPantallaPrincipal()
+        #region Instancia
+        public static FomPantallaPrincipal Instancia {get;}=new FomPantallaPrincipal();
+        #endregion
+
+        public string TipoMantenimiento { get; set; }
+
+        bool isvalid = true;
+
+        private FomPantallaPrincipal()
         {
             InitializeComponent();
         }
 
+        #region Eventos
+        private void BtnAutores_Click(object sender, EventArgs e)
+        {
+            TipoMantenimiento = "Autores";
+            FomDataGridView.Instancia.Show();
+            Instancia.Hide();
+        }
+        private void BtnEditoriales_Click(object sender, EventArgs e)
+        {
+            TipoMantenimiento = "Editoriales";
+            FomDataGridView.Instancia.Show();
+            Instancia.Hide();
+        }
+        private void BtnLibros_Click(object sender, EventArgs e)
+        {
+            isvalid = true;
+            if (FomMantLibros.Instancia.Autores.Count <=0)
+            {
+                MessageBox.Show("Debe Ingresar Autores");
+                isvalid = false;
+            }
+            else if (FomMantLibros.Instancia.Editoriales.Count <=0)
+            {
+                MessageBox.Show("Debe Ingresar Editoriales");
+                isvalid = false;
+            }
+            if (isvalid)
+            {
+                TipoMantenimiento = "Libros";
+                FomDataGridView.Instancia.Show();
+                Instancia.Hide();
+            }
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(1);
+        }
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
+        #endregion
+
+        #region Metodos
+
+        #endregion
+
+        
     }
 }
