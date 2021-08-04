@@ -102,6 +102,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="App1.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -119,6 +120,10 @@
     <ProjectReference Include="..\BusinesLayer\BusinesLayer.csproj">
       <Project>{50bd41fc-96c5-4aab-b3d6-fe1369eef5b6}</Project>
       <Name>BusinesLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Database\Database.csproj">
+      <Project>{5aba1fbe-02e9-4684-8238-0c2e6424565e}</Project>
+      <Name>Database</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

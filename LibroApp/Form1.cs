@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Database;
+using System.Data.SqlClient;
+using BusinesLayer;
 
 namespace LibroApp
 {
@@ -20,9 +23,16 @@ namespace LibroApp
 
         bool isvalid = true;
 
+        //private BibliotecaService service; 
+
         private FomPantallaPrincipal()
         {
             InitializeComponent();
+
+            //SqlConnection  connection= new SqlConnection();
+
+           // service = new BibliotecaService(connection);
+            
         }
 
         #region Eventos

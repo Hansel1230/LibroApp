@@ -1,7 +1,9 @@
-﻿using System;
+﻿using BusinesLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,9 +18,15 @@ namespace LibroApp
         public static FomDataGridView Instancia { get; } = new FomDataGridView();
         #endregion
 
+        private BibliotecaService service;
+
         public FomDataGridView()
         {
             InitializeComponent();
+
+            SqlConnection connection = new SqlConnection();
+
+            service = new BibliotecaService(connection);
         }
         #region Eventos
         private void FomDataGridView_Load(object sender, EventArgs e)
@@ -78,26 +86,17 @@ namespace LibroApp
 
         public void LoadData()
         {
-            if (FomPantallaPrincipal.Instancia.TipoMantenimiento == "Autores")
-            {               
-                BindingSource bindingSource = new BindingSource();
-                bindingSource.DataSource = FomMantLibros.Instancia.Autores;
+            DgvData.DataSource = service.GetAll();
 
-                DgvData.DataSource = bindingSource;
-            }
-            else if (FomPantallaPrincipal.Instancia.TipoMantenimiento == "Libros")
-            {
-                FomMantLibros.Instancia.Show();
-                Instancia.Hide();
-            }
-            else
-            {
-                FomMantEditorial.Instancia.Show();
-                Instancia.Hide();
-            }
-       
+            DgvData.ClearSelection();
         }
 
+        public void Deselect()
+        {
+            DgvData.ClearSelection();
+            BtnDeselect.Visible = false;
+            //id = null;
+        }
         #endregion
     }
 }

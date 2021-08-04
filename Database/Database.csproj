@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{50BD41FC-96C5-4AAB-B3D6-FE1369EEF5B6}</ProjectGuid>
+    <ProjectGuid>{5ABA1FBE-02E9-4684-8238-0C2E6424565E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BusinesLayer</RootNamespace>
-    <AssemblyName>BusinesLayer</AssemblyName>
+    <RootNamespace>Database</RootNamespace>
+    <AssemblyName>Database</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,15 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BibliotecaService.cs" />
-    <Compile Include="CustomControlItem\ComboBoxItem.cs" />
+    <Compile Include="Modelos\Autor.cs" />
+    <Compile Include="Modelos\Editorial.cs" />
+    <Compile Include="Modelos\Libro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{5aba1fbe-02e9-4684-8238-0c2e6424565e}</Project>
-      <Name>Database</Name>
-    </ProjectReference>
+    <Compile Include="RepositorioBiblioteca.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
