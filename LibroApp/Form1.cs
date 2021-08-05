@@ -45,8 +45,9 @@ namespace LibroApp
         private void BtnEditoriales_Click(object sender, EventArgs e)
         {
             TipoMantenimiento = "Editoriales";
-            FomDataGridView.Instancia.Show();
             Instancia.Hide();
+            FomDataGridView.Instancia.Show();
+            
         }
         private void BtnLibros_Click(object sender, EventArgs e)
         {

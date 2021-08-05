@@ -1,15 +1,9 @@
 ﻿using BusinesLayer;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Configuration;
+//using System.Configuration.Install;
 namespace LibroApp
 {
     public partial class FomDataGridView : Form
@@ -24,7 +18,9 @@ namespace LibroApp
         {
             InitializeComponent();
 
-            SqlConnection connection = new SqlConnection();
+            string connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+
+            SqlConnection connection = new SqlConnection(connectionString);
 
             service = new BibliotecaService(connection);
         }
@@ -98,5 +94,10 @@ namespace LibroApp
             //id = null;
         }
         #endregion
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

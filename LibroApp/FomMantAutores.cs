@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinesLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,7 +16,7 @@ namespace LibroApp
         #region Instancia
         public static FomMantAutores Instancia { get; } = new FomMantAutores();
         #endregion
-
+        private BibliotecaService service;
         bool isvalid;
 
         public FomMantAutores()
@@ -51,6 +52,7 @@ namespace LibroApp
             {
                 string FullName = TxtNombre.Text + " " + TxtApellido.Text;
                 FomMantLibros.Instancia.Autores.Add(FullName);
+               
                 //FomMantLibros.Instancia.NombreCbx = TxtNombre.Text;
                 FomDataGridView.Instancia.LoadData();
                 FomDataGridView.Instancia.Show();

@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.BtnEditar = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.atrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnAgregar = new System.Windows.Forms.Button();
             this.DgvData = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnListar = new System.Windows.Forms.Button();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.BtnDeselect = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -69,6 +69,22 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(569, 444);
             this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+            // 
+            // BtnEditar
+            // 
+            this.BtnEditar.BackColor = System.Drawing.Color.OldLace;
+            this.BtnEditar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnEditar.Font = new System.Drawing.Font("MS PGothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEditar.ForeColor = System.Drawing.Color.DarkKhaki;
+            this.BtnEditar.Location = new System.Drawing.Point(3, 396);
+            this.BtnEditar.Name = "BtnEditar";
+            this.BtnEditar.Size = new System.Drawing.Size(121, 45);
+            this.BtnEditar.TabIndex = 0;
+            this.BtnEditar.Text = "Editar";
+            this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Visible = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // menuStrip1
             // 
@@ -92,7 +108,7 @@
             // atrasToolStripMenuItem
             // 
             this.atrasToolStripMenuItem.Name = "atrasToolStripMenuItem";
-            this.atrasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.atrasToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.atrasToolStripMenuItem.Text = "Atras";
             this.atrasToolStripMenuItem.Click += new System.EventHandler(this.atrasToolStripMenuItem_Click);
             // 
@@ -135,36 +151,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(296, 45);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Controls.Add(this.BtnDeselect, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(432, 396);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(134, 45);
-            this.tableLayoutPanel3.TabIndex = 4;
-            // 
-            // BtnEditar
-            // 
-            this.BtnEditar.BackColor = System.Drawing.Color.OldLace;
-            this.BtnEditar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnEditar.Font = new System.Drawing.Font("MS PGothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnEditar.ForeColor = System.Drawing.Color.DarkKhaki;
-            this.BtnEditar.Location = new System.Drawing.Point(3, 396);
-            this.BtnEditar.Name = "BtnEditar";
-            this.BtnEditar.Size = new System.Drawing.Size(121, 45);
-            this.BtnEditar.TabIndex = 0;
-            this.BtnEditar.Text = "Editar";
-            this.BtnEditar.UseVisualStyleBackColor = false;
-            this.BtnEditar.Visible = false;
-            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
-            // 
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.OldLace;
@@ -192,6 +178,21 @@
             this.BtnListar.Text = "Listar";
             this.BtnListar.UseVisualStyleBackColor = false;
             this.BtnListar.Visible = false;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Controls.Add(this.BtnDeselect, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(432, 396);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(134, 45);
+            this.tableLayoutPanel3.TabIndex = 4;
             // 
             // BtnDeselect
             // 

@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinesLayer.CustomControlItem;
+using System.Data;
 
 namespace LibroApp
 {
@@ -49,8 +44,15 @@ namespace LibroApp
                 MessageBox.Show("Debe ingresar una fecha de publicacion");
                 isvalid = false;
             }
-            //else if (CbxAutor.Text == OpcionDefecto) { MessageBox.Show("Debe Seleccionar un autor"); isvalid = false; }
-            //else if (CbxEditorial.Text == OpcionDefecto) { MessageBox.Show("Debe Seleccionar un Editorial"); isvalid = false;}
+            else if (CbxAutor.Text == "Seleccione una Opcion") 
+            {
+                MessageBox.Show("Debe Seleccionar un autor");
+                isvalid = false;                
+            }               
+            else if (CbxEditorial.Text == "Seleccione una Opcion")
+            {
+                MessageBox.Show("Debe Seleccionar un Editorial"); isvalid = false;
+            }
             if (isvalid)
             {
                 FomDataGridView.Instancia.LoadData();
@@ -60,7 +62,6 @@ namespace LibroApp
 
             }
         }
-
         //Mantenimiento TxtNombre.Text
         private void TxtNombre_Click(object sender, EventArgs e)
         {
@@ -113,6 +114,8 @@ namespace LibroApp
         {
             TxtNombre.Text = "Ingrese Nombre:";
             TxtFecha.Text = "Ingrese Fecha de publicacion:";
+            CbxAutor.Text = "Seleccione una Opcion";
+            CbxEditorial.Text = "Seleccione una Opcion";
         }
         #endregion
 
@@ -135,6 +138,7 @@ namespace LibroApp
             CbxEditorial.Items.Add(OpcionDefecto);
             CbxEditorial.SelectedItem = OpcionDefecto;
 
+            //Autores
             foreach (string autor in Autores)
             {
                 count++;
@@ -144,8 +148,6 @@ namespace LibroApp
 
                 CbxAutor.Items.Add(opcionAutor);
             }
-
-
             //Editorial
             foreach (string editorial in Editoriales)
             {
