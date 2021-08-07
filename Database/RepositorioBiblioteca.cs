@@ -17,9 +17,8 @@ namespace Database
         public bool agregarAutor(Autor item)
         {
             SqlCommand command = new SqlCommand("insert into Autores1(Nombre,Apellido,Correo)" +
-                " values (@id,@nombre,@apellido,@correo) ");
-
-            //command.Parameters.AddWithValue("@id", item.ID);
+                " values (@nombre,@apellido,@correo) ");
+            
             command.Parameters.AddWithValue("@nombre", item.Nombre);
             command.Parameters.AddWithValue("@apellido", item.Apellido);
             command.Parameters.AddWithValue("@correo", item.Correo);
@@ -49,8 +48,10 @@ namespace Database
             return ExecuteDml(command);
         }
 
-        public Autor GetbyIDAutor(int id)
+        //Hansel: arreglar
+        public void GetbyIDAutor(int id)
         {
+            /*
             try
             {
                 _coneccion.Open();
@@ -89,11 +90,12 @@ namespace Database
             {
                 return null;
             }
+            */
         }
 
         public DataTable GetallAutor()
         {
-            SqlDataAdapter query = new SqlDataAdapter("select id as codigo,Nombre,Apellido,Correo from Autores1",_coneccion);
+            SqlDataAdapter query = new SqlDataAdapter("select id as Codigo,Nombre,Apellido,Correo from Autores1",_coneccion);
 
             return LoadData(query);
         }

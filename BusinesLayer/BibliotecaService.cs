@@ -8,6 +8,7 @@ namespace BusinesLayer
     public class BibliotecaService
     {
         private RepositorioBiblioteca repositorio;
+
         public BibliotecaService(SqlConnection conection)
         {
             repositorio = new RepositorioBiblioteca(conection);
@@ -28,12 +29,13 @@ namespace BusinesLayer
             return repositorio.EliminarAutor(id);
         }
 
-        public Autor GetById(int id)
+        //areglar
+        public void GetById(int id)
         {
-            return repositorio.GetbyIDAutor(id);
+            //return  repositorio.GetbyIDAutor(id);
         }
 
-        public DataTable GetAll()
+        public DataTable GetAllAutor()
         {
             return repositorio.GetallAutor();
         }

@@ -1,9 +1,9 @@
 ﻿using BusinesLayer;
 using System;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Configuration;
-//using System.Configuration.Install;
+
 namespace LibroApp
 {
     public partial class FomDataGridView : Form
@@ -12,17 +12,19 @@ namespace LibroApp
         public static FomDataGridView Instancia { get; } = new FomDataGridView();
         #endregion
 
+
         private BibliotecaService service;
 
         public FomDataGridView()
         {
             InitializeComponent();
 
-            string connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["Default"].ToString();
 
             SqlConnection connection = new SqlConnection(connectionString);
 
             service = new BibliotecaService(connection);
+            MessageBox.Show("Conexion abierta", "success");
         }
         #region Eventos
         private void FomDataGridView_Load(object sender, EventArgs e)
@@ -46,7 +48,7 @@ namespace LibroApp
             {
                 FomMantEditorial.Instancia.Show();
                 Instancia.Hide();
-            }            
+            }
         }
         private void BtnEditar_Click(object sender, EventArgs e)
         {
@@ -82,7 +84,11 @@ namespace LibroApp
 
         public void LoadData()
         {
-            DgvData.DataSource = service.GetAll();
+            if (FomPantallaPrincipal.Instancia.TipoMantenimiento== "Autores")
+            {
+                DgvData.DataSource = service.GetAllAutor();
+            }
+            
 
             DgvData.ClearSelection();
         }

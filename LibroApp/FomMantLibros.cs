@@ -14,7 +14,7 @@ namespace LibroApp
 
         public string NombreCbx { get; set; }
 
-        #region
+        #region instancia
         public static FomMantLibros Instancia { get; } = new FomMantLibros();
         #endregion
 

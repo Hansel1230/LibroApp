@@ -8,15 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Database;
 namespace LibroApp
 {
     public partial class FomMantAutores : Form
     {
         #region Instancia
         public static FomMantAutores Instancia { get; } = new FomMantAutores();
+
+        private BibliotecaService InstanciaService;
         #endregion
-        private BibliotecaService service;
         bool isvalid;
 
         public FomMantAutores()
@@ -50,9 +51,13 @@ namespace LibroApp
             }
             if (isvalid)
             {
-                string FullName = TxtNombre.Text + " " + TxtApellido.Text;
-                FomMantLibros.Instancia.Autores.Add(FullName);
-               
+
+                Database.Modelos.Autor autor = new Database.Modelos.Autor(TxtNombre.Text, TxtApellido.Text, TxtCorreo.Text);
+                
+                FomMantLibros.Instancia.Autores.Add(autor.Nombre);
+
+                //Database.Modelos.Autor.Instancia.Nombre(TxtNombre.Text);
+                
                 //FomMantLibros.Instancia.NombreCbx = TxtNombre.Text;
                 FomDataGridView.Instancia.LoadData();
                 FomDataGridView.Instancia.Show();
