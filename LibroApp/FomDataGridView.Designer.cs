@@ -128,10 +128,18 @@
             // 
             // DgvData
             // 
+            this.DgvData.AllowUserToAddRows = false;
+            this.DgvData.AllowUserToDeleteRows = false;
+            this.DgvData.AllowUserToResizeColumns = false;
+            this.DgvData.AllowUserToResizeRows = false;
+            this.DgvData.BackgroundColor = System.Drawing.Color.MintCream;
             this.DgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DgvData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DgvData.GridColor = System.Drawing.Color.Maroon;
             this.DgvData.Location = new System.Drawing.Point(90, 78);
             this.DgvData.Name = "DgvData";
+            this.DgvData.ReadOnly = true;
+            this.DgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DgvData.Size = new System.Drawing.Size(413, 312);
             this.DgvData.TabIndex = 2;
             this.DgvData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvData_CellClick);
@@ -209,6 +217,7 @@
             this.BtnDeselect.Text = "Deseleccionar";
             this.BtnDeselect.UseVisualStyleBackColor = false;
             this.BtnDeselect.Visible = false;
+            this.BtnDeselect.Click += new System.EventHandler(this.BtnDeselect_Click);
             // 
             // FomDataGridView
             // 

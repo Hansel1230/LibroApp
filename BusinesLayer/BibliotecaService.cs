@@ -14,6 +14,11 @@ namespace BusinesLayer
             repositorio = new RepositorioBiblioteca(conection);
         }
 
+
+        #region Metodos
+
+        #region Autor
+        //Autor
         public bool AgregarAutor(Autor autor)
         {
             return repositorio.AgregarAutor(autor);
@@ -28,6 +33,46 @@ namespace BusinesLayer
         {
             return repositorio.EliminarAutor(id);
         }
+
+        #endregion
+
+        #region Editorial
+        //Editorial
+        public bool AgregarEditorial(Editorial editorial)
+        {
+            return repositorio.AgregarEditorial(editorial);
+        }
+
+        public bool EditarEditorial(Editorial editorial, int editorialId)
+        {
+            return repositorio.EditarEditorial(editorial, editorialId);
+        }
+
+        public bool EliminarEditorial(int id)
+        {
+            return repositorio.EliminarEditorial(id);
+        }
+
+        #endregion
+
+        #region Libro
+        //Libro
+        public bool AgregarLibro(Libro libro)
+        {
+            return repositorio.AgregarLibro(libro);
+        }
+
+        public bool EditarLibro(Libro libro, int librolId)
+        {
+            return repositorio.EditarLibro(libro, librolId);
+        }
+
+        public bool EliminarLibro(int id)
+        {
+            return repositorio.EliminarLibro(id);
+        }
+
+        #endregion
 
         //areglar
         public void GetById(int id)
@@ -54,5 +99,6 @@ namespace BusinesLayer
         {
             return repositorio.ValidarLibro();
         }
+        #endregion
     }
 }

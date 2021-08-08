@@ -14,7 +14,8 @@ namespace Database
         {
             _coneccion = Coneccion;
         }
-
+        #region Mant.bbdd.Autor
+        //Autor
         public bool AgregarAutor(Autor item)
         {
             SqlCommand command = new SqlCommand("insert into Autores1(Nombre,Apellido,Correo)" +
@@ -48,7 +49,86 @@ namespace Database
 
             return ExecuteDml(command);
         }
+        #endregion
 
+        #region Mant.bbdd.Editoriales
+        //Editorial
+        public bool AgregarEditorial(Editorial item)
+        {
+            SqlCommand command = new SqlCommand("insert into Editoriales(Nombre,Telefono,Pais)" +
+                " values (@nombre,@telefono,@pais) ", _coneccion);
+
+            command.Parameters.AddWithValue("@nombre", item.Nombre);
+            command.Parameters.AddWithValue("@telefono", item.Telefono);
+            command.Parameters.AddWithValue("@pais", item.Pais);
+
+            return ExecuteDml(command);
+        }
+
+        public bool EditarEditorial(Editorial item, int EditorId)
+        {
+            SqlCommand command = new SqlCommand("update Editoriales set Nombre=@nombre,Telefono=@telefono,Pais=@pais" +
+                " where id=@id", _coneccion);
+
+
+            command.Parameters.AddWithValue("@nombre", item.Nombre);
+            command.Parameters.AddWithValue("@telefono", item.Telefono);
+            command.Parameters.AddWithValue("@pais", item.Pais);
+            command.Parameters.AddWithValue("@id", EditorId);
+
+            return ExecuteDml(command);
+        }
+
+        public bool EliminarEditorial(int id)
+        {
+            SqlCommand command = new SqlCommand("delete Editoriales where id=@id", _coneccion);
+
+            command.Parameters.AddWithValue("@id", id);
+
+            return ExecuteDml(command);
+        }
+        #endregion
+
+        #region Mant.bbdd.Libros
+        //Libro
+        public bool AgregarLibro(Libro item)
+        {
+            SqlCommand command = new SqlCommand("insert into Libros(Nombre,Fecha_Publicacion,id_Autor,id_Editorial)" +
+                " values (@nombre,@fecha,@idAutor,@idEditorial) ", _coneccion);
+
+            command.Parameters.AddWithValue("@nombre", item.Nombre);
+            command.Parameters.AddWithValue("@fecha", item.Fecha);
+            command.Parameters.AddWithValue("@idAutor", item.IdAutor);
+            command.Parameters.AddWithValue("@idEditorial", item.IdEditorial);
+
+
+            return ExecuteDml(command);
+        }
+
+        public bool EditarLibro(Libro item, int LibroId)
+        {
+            SqlCommand command = new SqlCommand("update Libros set Nombre=@nombre,Fecha_Publicacion=@fecha,Correo=@correo" +
+                " where id=@idLibro", _coneccion);
+
+
+            command.Parameters.AddWithValue("@nombre", item.Nombre);
+            command.Parameters.AddWithValue("@fecha", item.Fecha);
+            command.Parameters.AddWithValue("@idAutor", item.IdAutor);
+            command.Parameters.AddWithValue("@idEditorial", item.IdEditorial);
+            command.Parameters.AddWithValue("@idLibro", LibroId);
+
+            return ExecuteDml(command);
+        }
+
+        public bool EliminarLibro(int id)
+        {
+            SqlCommand command = new SqlCommand("delete Libros where id=@id", _coneccion);
+
+            command.Parameters.AddWithValue("@id", id);
+
+            return ExecuteDml(command);
+        }
+        
         //Hansel: arreglar
         public void GetbyIDAutor(int id)
         {
@@ -172,5 +252,6 @@ namespace Database
                 return false;
             }
         }
+        #endregion
     }
 }

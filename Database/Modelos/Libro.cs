@@ -9,9 +9,18 @@ namespace Database.Modelos
     public class Libro
     {
         public int Id { get; set; }
-        public int Nombre { get; set; }
-        public int Fecha { get; set; }//Fecha de publicacion
+        public string Nombre { get; set; }
+        public string Fecha { get; set; }//Fecha de publicacion
         public int IdAutor { get; set; }
         public int IdEditorial { get; set; }
+
+        public Libro(int id,string nombre,string fecha,int idAutor,int idEditorial)
+        {
+            this.Id = id;
+            this.Nombre = nombre;
+            this.Fecha = fecha;
+            this.IdAutor = idAutor;
+            this.IdEditorial = idEditorial;
+        }
     }
 }

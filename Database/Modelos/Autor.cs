@@ -1,5 +1,4 @@
-﻿
-namespace Database.Modelos
+﻿namespace Database.Modelos
 {
     public class Autor
     {

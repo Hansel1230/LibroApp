@@ -17,7 +17,7 @@ namespace LibroApp
         #region instancia
         public static FomMantLibros Instancia { get; } = new FomMantLibros();
         #endregion
-
+        private int LibroId { get; set; } = 0;
         bool isvalid;
 
         public FomMantLibros()
@@ -29,7 +29,7 @@ namespace LibroApp
         private void FomMantLibros_Load(object sender, EventArgs e)
         {
             LoadComboBox();
-            FullTxt();
+            
         }
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
@@ -117,10 +117,23 @@ namespace LibroApp
             CbxAutor.Text = "Seleccione una Opcion";
             CbxEditorial.Text = "Seleccione una Opcion";
         }
+        public void LoadTxt()
+        {
+            if (FomDataGridView.Instancia.FilaSeleccionada != null)
+            {
+                LibroId = Convert.ToInt16(FomDataGridView.Instancia.FilaSeleccionada.Cells[0].Value);
+                TxtNombre.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[1].Value.ToString();
+                TxtFecha.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[2].Value.ToString();
+                CbxAutor.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[3].Value.ToString();
+                CbxEditorial.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[4].Value.ToString();
+
+                FomDataGridView.Instancia.FilaSeleccionada = null;
+            }
+        }
         #endregion
 
         #region ComboBox
-        
+
         //Llenar ComboBox
 
         private void LoadComboBox()

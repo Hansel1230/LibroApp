@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BusinesLayer;
+using System;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace LibroApp
@@ -16,18 +12,33 @@ namespace LibroApp
         public static FomMantEditorial Instancia { get; } = new FomMantEditorial();
         #endregion
 
-        bool isvalid;
+        #region variables
+        private int EditorId { get; set; } = 0;
+        private BibliotecaService service;
+        private bool isvalid;
+        #endregion
+
 
         public FomMantEditorial()
         {
             InitializeComponent();
+
+            string connectionString = ConfigurationManager.ConnectionStrings["Default"].ToString();
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            service = new BibliotecaService(connection);
         }
 
         #region Eventos
 
         private void FomMantEditorial_Load(object sender, EventArgs e)
         {
-            FullTxt();
+
+        }
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void atrasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -55,18 +66,31 @@ namespace LibroApp
             }
             if (isvalid)
             {
-                FomMantLibros.Instancia.Editoriales.Add(TxtNombre.Text);
+                Database.Modelos.Editorial editorial = new Database.Modelos.Editorial(TxtNombre.Text, TxtPais.Text, TxtTelefono.Text);
+
+                if (EditorId > 0)
+                {
+                    service.EditarEditorial(editorial, EditorId);
+                    EditorId = 0;
+                }
+                else
+                {
+                    service.AgregarEditorial(editorial);
+                }
+
+                FullTxt();
                 FomDataGridView.Instancia.LoadData();
                 FomDataGridView.Instancia.Show();
                 Instancia.Hide();
-                FullTxt();               
+
+
             }
-            
+
         }
         //Mantenimiento TxtNombre.Text
         private void TxtNombre_Click(object sender, EventArgs e)
         {
-            if (TxtNombre.Text== "Ingrese Nombre:")
+            if (TxtNombre.Text == "Ingrese Nombre:")
             {
                 TxtNombre.Text = "";
             }
@@ -83,7 +107,7 @@ namespace LibroApp
         //Mantenimiento TxtTelefono.Text
         private void TxtTelefono_Click(object sender, EventArgs e)
         {
-            if (TxtTelefono.Text== "Ingrese Telefono:")
+            if (TxtTelefono.Text == "Ingrese Telefono:")
             {
                 TxtTelefono.Text = "";
             }
@@ -91,7 +115,7 @@ namespace LibroApp
 
         private void TxtTelefono_Leave(object sender, EventArgs e)
         {
-            if (TxtTelefono.Text== "")
+            if (TxtTelefono.Text == "")
             {
                 TxtTelefono.Text = "Ingrese Telefono:";
             }
@@ -100,9 +124,9 @@ namespace LibroApp
         //Mantenimiento TxtPais.Text
         private void TxtPais_Click(object sender, EventArgs e)
         {
-            if (TxtPais.Text== "Ingrese Nombre del Pais:")
+            if (TxtPais.Text == "Ingrese Nombre del Pais:")
             {
-                TxtPais.Text ="";
+                TxtPais.Text = "";
             }
         }
 
@@ -128,9 +152,19 @@ namespace LibroApp
             TxtPais.Text = "Ingrese Nombre del Pais:";
             TxtTelefono.Text = "Ingrese Telefono:";
         }
-        #endregion
+        public void LoadTxt()
+        {
+            if (FomDataGridView.Instancia.FilaSeleccionada != null)
+            {
+                EditorId = Convert.ToInt16(FomDataGridView.Instancia.FilaSeleccionada.Cells[0].Value);
+                TxtNombre.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[1].Value.ToString();
+                TxtTelefono.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[2].Value.ToString();
+                TxtPais.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[3].Value.ToString();
+                FomDataGridView.Instancia.FilaSeleccionada = null;
+            }
+        }
 
-        
+        #endregion
     }
 
 }

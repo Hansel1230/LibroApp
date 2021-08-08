@@ -33,7 +33,7 @@ namespace LibroApp
         private void FomMantAutores_Load(object sender, EventArgs e)
         {
 
-            FullTxt();
+             
 
         }
 
@@ -91,6 +91,7 @@ namespace LibroApp
                 TxtNombre.Text = "Ingrese Nombre:";
             }
         }
+
         //Mantenimiento Txt.Apellido.Text
         private void TxtApellido_Click(object sender, EventArgs e)
         {
@@ -130,10 +131,17 @@ namespace LibroApp
             FomDataGridView.Instancia.Show();
             Instancia.Hide();
         }
+
         private void FomMantAutores_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         #endregion
 
         #region Metodos
@@ -158,9 +166,6 @@ namespace LibroApp
         }
         #endregion
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
     }
 }
