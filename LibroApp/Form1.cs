@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BusinesLayer;
+using System;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace LibroApp
@@ -10,12 +13,16 @@ namespace LibroApp
         #endregion
 
         public string TipoMantenimiento { get; set; }
+        private BibliotecaService service;
 
-        bool isvalid = true;
-        
         private FomPantallaPrincipal()
         {
             InitializeComponent();
+            string connectionString = ConfigurationManager.ConnectionStrings["Default"].ToString();
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            service = new BibliotecaService(connection);
         }
 
         #region Eventos
@@ -32,22 +39,16 @@ namespace LibroApp
         }
         private void BtnLibros_Click(object sender, EventArgs e)
         {
-            isvalid = true;
-            if (FomMantLibros.Instancia.Autores.Count <= 0)
-            {
-                MessageBox.Show("Debe Ingresar Autores");
-                isvalid = false;
-            }
-            else if (FomMantLibros.Instancia.Editoriales.Count <= 0)
-            {
-                MessageBox.Show("Debe Ingresar Editoriales");
-                isvalid = false;
-            }
-            if (isvalid)
+            if (service.ValidarLibro())
             {
                 TipoMantenimiento = "Libros";
                 moverADGV();
             }
+            else
+            {
+                MessageBox.Show("Debe Ingresar Autores y/o Editoriales para poder continuar");
+            }
+            
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -63,6 +64,7 @@ namespace LibroApp
 
         private void moverADGV()
         {
+            FomDataGridView.Instancia.LoadData();
             FomDataGridView.Instancia.Show();
             Instancia.Hide();
         }

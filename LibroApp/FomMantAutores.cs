@@ -1,34 +1,40 @@
 ﻿using BusinesLayer;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Database;
+using System.Data.SqlClient;
+using System.Configuration;
+
 namespace LibroApp
 {
     public partial class FomMantAutores : Form
     {
         #region Instancia
         public static FomMantAutores Instancia { get; } = new FomMantAutores();
-
-        private BibliotecaService InstanciaService;
         #endregion
-        bool isvalid;
+
+        #region variables
+        private int AutorId { get; set; } = 0;
+        private BibliotecaService service;
+        private bool isvalid;
+        #endregion
+
 
         public FomMantAutores()
         {
             InitializeComponent();
+            string connectionString = ConfigurationManager.ConnectionStrings["Default"].ToString();
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            service = new BibliotecaService(connection);
         }
 
         #region Eventos
         private void FomMantAutores_Load(object sender, EventArgs e)
         {
+
             FullTxt();
+
         }
 
         private void Agregar_Click(object sender, EventArgs e)
@@ -51,19 +57,22 @@ namespace LibroApp
             }
             if (isvalid)
             {
-
                 Database.Modelos.Autor autor = new Database.Modelos.Autor(TxtNombre.Text, TxtApellido.Text, TxtCorreo.Text);
-                
-                FomMantLibros.Instancia.Autores.Add(autor.Nombre);
 
-                //Database.Modelos.Autor.Instancia.Nombre(TxtNombre.Text);
-                
-                //FomMantLibros.Instancia.NombreCbx = TxtNombre.Text;
+                if (AutorId>0)
+                {
+                    service.EditarAutor(autor, AutorId);
+                    AutorId = 0;
+                }
+                else
+                {
+                    service.AgregarAutor(autor);
+                }
+
+                FullTxt();
                 FomDataGridView.Instancia.LoadData();
                 FomDataGridView.Instancia.Show();
                 Instancia.Hide();
-                FullTxt();
-
             }
         }
         //Mantenimiento TxtNombre.Text
@@ -135,8 +144,23 @@ namespace LibroApp
             TxtApellido.Text = "Ingrese Apellido:";
             TxtCorreo.Text = "Ingrese Correo:";
         }
+
+        public void LoadTxt()
+        {
+            if (FomDataGridView.Instancia.FilaSeleccionada != null)
+            {
+                AutorId = Convert.ToInt16(FomDataGridView.Instancia.FilaSeleccionada.Cells[0].Value);
+                TxtNombre.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[1].Value.ToString();
+                TxtApellido.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[2].Value.ToString();
+                TxtCorreo.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[3].Value.ToString();
+                FomDataGridView.Instancia.FilaSeleccionada = null;
+            }
+        }
         #endregion
 
-        
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

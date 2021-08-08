@@ -1,5 +1,6 @@
 ﻿using Database.Modelos;
 using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -14,19 +15,19 @@ namespace Database
             _coneccion = Coneccion;
         }
 
-        public bool agregarAutor(Autor item)
+        public bool AgregarAutor(Autor item)
         {
             SqlCommand command = new SqlCommand("insert into Autores1(Nombre,Apellido,Correo)" +
-                " values (@nombre,@apellido,@correo) ");
+                " values (@nombre,@apellido,@correo) ", _coneccion);
             
             command.Parameters.AddWithValue("@nombre", item.Nombre);
             command.Parameters.AddWithValue("@apellido", item.Apellido);
             command.Parameters.AddWithValue("@correo", item.Correo);
-
+            
             return ExecuteDml(command);
         }
 
-        public bool EditarAutor(Autor item)
+        public bool EditarAutor(Autor item,int AutorId)
         {
             SqlCommand command = new SqlCommand("update Autores1 set Nombre=@nombre,Apellido=@apellido,Correo=@correo where id=@id", _coneccion);
 
@@ -34,7 +35,7 @@ namespace Database
             command.Parameters.AddWithValue("@nombre", item.Nombre);
             command.Parameters.AddWithValue("@apellido", item.Apellido);
             command.Parameters.AddWithValue("@correo", item.Correo);
-            command.Parameters.AddWithValue("@id", item.ID);
+            command.Parameters.AddWithValue("@id", AutorId);
 
             return ExecuteDml(command);
         }
@@ -100,6 +101,23 @@ namespace Database
             return LoadData(query);
         }
 
+        public DataTable GetallEditoriales()
+        {
+            SqlDataAdapter query = new SqlDataAdapter("select id as Codigo,Nombre,Telefono,Pais from Editoriales", _coneccion);
+
+            return LoadData(query);
+        }
+
+        public DataTable GetAllLibros()
+        {
+            SqlDataAdapter query = new SqlDataAdapter("SELECT Libros.id as Codigo,Libros.Nombre as 'Nombre Libro'" +
+                ",Libros.Fecha_Publicacion as 'fecha publicacion',Autores1.Nombre as 'Nombre Autor'," +
+                " Editoriales.Nombre as 'Nombre Editorial' FROM Libros" +
+                " inner join Autores1 on ( Libros.id_Autor = Autores1.id)  " +
+                " inner join Editoriales on ( Libros.id_Editorial = Editoriales.id)", _coneccion);
+            return LoadData(query);
+        }
+
         private DataTable LoadData(SqlDataAdapter query)
         {
             try
@@ -120,7 +138,23 @@ namespace Database
                 return null;
             }
         }
-       
+
+        public bool ValidarLibro()
+        {
+            SqlDataAdapter Editorial = new SqlDataAdapter("select * from Editoriales", _coneccion);
+            int EditorialCantidad = LoadData(Editorial).Rows.Count;
+
+            SqlDataAdapter Autor = new SqlDataAdapter("select * from Autores1", _coneccion);
+            int AutorCantidad = LoadData(Autor).Rows.Count;
+
+            if ((EditorialCantidad==0) || (AutorCantidad == 0))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public bool ExecuteDml(SqlCommand query)
         {
             try

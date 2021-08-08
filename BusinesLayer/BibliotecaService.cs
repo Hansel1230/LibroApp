@@ -14,17 +14,17 @@ namespace BusinesLayer
             repositorio = new RepositorioBiblioteca(conection);
         }
 
-        public bool agregar(Autor autor)
+        public bool AgregarAutor(Autor autor)
         {
-            return repositorio.agregarAutor(autor);
+            return repositorio.AgregarAutor(autor);
         }
 
-        public bool Editar(Autor autor)
+        public bool EditarAutor(Autor autor,int autorId)
         {
-            return repositorio.EditarAutor(autor);
+            return repositorio.EditarAutor(autor,autorId);
         }
 
-        public bool Eliminar(int id)
+        public bool EliminarAutor(int id)
         {
             return repositorio.EliminarAutor(id);
         }
@@ -40,5 +40,19 @@ namespace BusinesLayer
             return repositorio.GetallAutor();
         }
 
+        public DataTable GetallEditoriales()
+        {
+            return repositorio.GetallEditoriales();
+        }
+
+        public DataTable GetAllLibros()
+        {
+            return repositorio.GetAllLibros();
+        }
+
+        public bool ValidarLibro()
+        {
+            return repositorio.ValidarLibro();
+        }
     }
 }

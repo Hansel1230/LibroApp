@@ -71,6 +71,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.50443F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(449, 377);
             this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // menuStrip1
             // 
@@ -94,7 +95,7 @@
             // atrsToolStripMenuItem
             // 
             this.atrsToolStripMenuItem.Name = "atrsToolStripMenuItem";
-            this.atrsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.atrsToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.atrsToolStripMenuItem.Text = "Atras";
             this.atrsToolStripMenuItem.Click += new System.EventHandler(this.atrsToolStripMenuItem_Click);
             // 

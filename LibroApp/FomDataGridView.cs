@@ -12,7 +12,8 @@ namespace LibroApp
         public static FomDataGridView Instancia { get; } = new FomDataGridView();
         #endregion
 
-
+        public DataGridViewRow FilaSeleccionada = null;
+        private int index = 0;
         private BibliotecaService service;
 
         public FomDataGridView()
@@ -24,12 +25,10 @@ namespace LibroApp
             SqlConnection connection = new SqlConnection(connectionString);
 
             service = new BibliotecaService(connection);
-            MessageBox.Show("Conexion abierta", "success");
         }
         #region Eventos
         private void FomDataGridView_Load(object sender, EventArgs e)
         {
-            LoadData();
         }
 
         private void BtnAgregar_Click(object sender, EventArgs e)
@@ -54,6 +53,7 @@ namespace LibroApp
         {
             if (FomPantallaPrincipal.Instancia.TipoMantenimiento == "Autores")
             {
+                FomMantAutores.Instancia.LoadTxt();
                 FomMantAutores.Instancia.Show();
                 Instancia.Hide();
             }
@@ -88,22 +88,58 @@ namespace LibroApp
             {
                 DgvData.DataSource = service.GetAllAutor();
             }
-            
-
-            DgvData.ClearSelection();
+            else if (FomPantallaPrincipal.Instancia.TipoMantenimiento == "Editoriales")
+            {
+                DgvData.DataSource = service.GetallEditoriales();
+            }
+            else
+            {
+                DgvData.DataSource = service.GetAllLibros();
+            }
+                DgvData.ClearSelection();
         }
 
         public void Deselect()
         {
             DgvData.ClearSelection();
             BtnDeselect.Visible = false;
-            //id = null;
         }
         #endregion
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void DgvData_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                FilaSeleccionada = DgvData.Rows[e.RowIndex];
+                BtnEliminar.Visible = true;
+                BtnDeselect.Visible = true;
+                BtnListar.Visible = true;
+                BtnEditar.Visible = true;
+            }
+            
+        }
+
+        private void BtnEliminar_Click(object sender, EventArgs e)
+        {
+            if (FomPantallaPrincipal.Instancia.TipoMantenimiento == "Autores")
+            {
+                // eliminar autores
+                service.EliminarAutor(Convert.ToInt16(FilaSeleccionada.Cells[0].Value));
+                LoadData();
+            }
+            else if (FomPantallaPrincipal.Instancia.TipoMantenimiento == "Libros")
+            {
+                // eliminar libros
+            }
+            else
+            {
+                // eliminar editorial
+            }
         }
     }
 }
