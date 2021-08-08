@@ -8,7 +8,10 @@ namespace Database
 {
     public class RepositorioBiblioteca
     {
+
         private SqlConnection _coneccion;
+
+        
 
         public RepositorioBiblioteca(SqlConnection Coneccion)
         {
@@ -107,9 +110,10 @@ namespace Database
 
         public bool EditarLibro(Libro item, int LibroId)
         {
-            SqlCommand command = new SqlCommand("update Libros set Nombre=@nombre,Fecha_Publicacion=@fecha,Correo=@correo" +
+            SqlCommand command = new SqlCommand("update Libros set Nombre=@nombre,Fecha_Publicacion=@fecha" +
+                ",id_Autor=@idAutor,id_Editorial=@idEditorial" +
                 " where id=@idLibro", _coneccion);
-
+            
 
             command.Parameters.AddWithValue("@nombre", item.Nombre);
             command.Parameters.AddWithValue("@fecha", item.Fecha);
@@ -128,6 +132,12 @@ namespace Database
 
             return ExecuteDml(command);
         }
+
+        public void TipoDelecte(string tipo)
+        {
+            
+        }
+
         
         //Hansel: arreglar
         public void GetbyIDAutor(int id)
@@ -235,6 +245,18 @@ namespace Database
             return true;
         }
 
+        public bool ValidarReferenciaLibro(string tabla,int tablaId)
+        {
+            SqlDataAdapter Resultado = new SqlDataAdapter("select * from Libros where id_"+tabla+" = "+tablaId, _coneccion);
+            int ResultadoCantidad = LoadData(Resultado).Rows.Count;
+
+            if (ResultadoCantidad == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public bool ExecuteDml(SqlCommand query)
         {
             try

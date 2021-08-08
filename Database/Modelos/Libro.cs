@@ -14,9 +14,8 @@ namespace Database.Modelos
         public int IdAutor { get; set; }
         public int IdEditorial { get; set; }
 
-        public Libro(int id,string nombre,string fecha,int idAutor,int idEditorial)
+        public Libro(string nombre,string fecha,int idAutor,int idEditorial)
         {
-            this.Id = id;
             this.Nombre = nombre;
             this.Fecha = fecha;
             this.IdAutor = idAutor;

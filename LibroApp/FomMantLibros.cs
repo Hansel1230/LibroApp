@@ -1,8 +1,9 @@
-﻿using System;
+﻿using BusinesLayer;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Windows.Forms;
-using BusinesLayer.CustomControlItem;
-using System.Data;
 
 namespace LibroApp
 {
@@ -20,16 +21,24 @@ namespace LibroApp
         private int LibroId { get; set; } = 0;
         bool isvalid;
 
+        private BibliotecaService service;
+
         public FomMantLibros()
         {
             InitializeComponent();
+
+            string connectionString = ConfigurationManager.ConnectionStrings["Default"].ToString();
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            service = new BibliotecaService(connection);
         }
 
         #region Eventos
         private void FomMantLibros_Load(object sender, EventArgs e)
         {
             LoadComboBox();
-            
+
         }
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
@@ -44,19 +53,37 @@ namespace LibroApp
                 MessageBox.Show("Debe ingresar una fecha de publicacion");
                 isvalid = false;
             }
-            else if (CbxAutor.Text == "Seleccione una Opcion") 
+            else if (CbxAutor.Text == "Seleccione una Opcion")
             {
                 MessageBox.Show("Debe Seleccionar un autor");
-                isvalid = false;                
-            }               
+                isvalid = false;
+            }
             else if (CbxEditorial.Text == "Seleccione una Opcion")
             {
                 MessageBox.Show("Debe Seleccionar un Editorial"); isvalid = false;
             }
             if (isvalid)
             {
+                string nombre = TxtNombre.Text;
+                string fecha = TxtFecha.Text;
+                int idAutor = Convert.ToInt32(CbxAutor.SelectedValue);
+                int idEditorial = Convert.ToInt32(CbxEditorial.SelectedValue);
+
+
+                Database.Modelos.Libro libro = new Database.Modelos.Libro(nombre, fecha, idAutor, idEditorial);
+
+                if (LibroId > 0)
+                {
+                    service.EditarLibro(libro, LibroId);
+                    LibroId = 0;
+                }
+                else
+                {
+                    service.AgregarLibro(libro);
+                }
+
                 FomDataGridView.Instancia.LoadData();
-                FomDataGridView.Instancia.Show();                
+                FomDataGridView.Instancia.Show();
                 Instancia.Hide();
                 FullTxt();
 
@@ -65,7 +92,7 @@ namespace LibroApp
         //Mantenimiento TxtNombre.Text
         private void TxtNombre_Click(object sender, EventArgs e)
         {
-            if (TxtNombre.Text== "Ingrese Nombre:")
+            if (TxtNombre.Text == "Ingrese Nombre:")
             {
                 TxtNombre.Text = "";
             }
@@ -73,7 +100,7 @@ namespace LibroApp
 
         private void TxtNombre_Leave(object sender, EventArgs e)
         {
-            if (TxtNombre.Text=="")
+            if (TxtNombre.Text == "")
             {
                 TxtNombre.Text = "Ingrese Nombre:";
             }
@@ -82,7 +109,7 @@ namespace LibroApp
         //Mantenimiento TxtFecha.Text
         private void TxtFecha_Click(object sender, EventArgs e)
         {
-            if (TxtFecha.Text== "Ingrese Fecha de publicacion:")
+            if (TxtFecha.Text == "Ingrese Fecha de publicacion:")
             {
                 TxtFecha.Text = "";
             }
@@ -90,7 +117,7 @@ namespace LibroApp
 
         private void TxtFecha_Leave(object sender, EventArgs e)
         {
-            if (TxtFecha.Text=="")
+            if (TxtFecha.Text == "")
             {
                 TxtFecha.Text = "Ingrese Fecha de publicacion:";
             }
@@ -114,8 +141,7 @@ namespace LibroApp
         {
             TxtNombre.Text = "Ingrese Nombre:";
             TxtFecha.Text = "Ingrese Fecha de publicacion:";
-            CbxAutor.Text = "Seleccione una Opcion";
-            CbxEditorial.Text = "Seleccione una Opcion";
+            LoadComboBox();
         }
         public void LoadTxt()
         {
@@ -124,8 +150,9 @@ namespace LibroApp
                 LibroId = Convert.ToInt16(FomDataGridView.Instancia.FilaSeleccionada.Cells[0].Value);
                 TxtNombre.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[1].Value.ToString();
                 TxtFecha.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[2].Value.ToString();
-                CbxAutor.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[3].Value.ToString();
-                CbxEditorial.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[4].Value.ToString();
+                LoadComboBox();
+              //  CbxAutor.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[3].Value.ToString();
+               // CbxEditorial.Text = FomDataGridView.Instancia.FilaSeleccionada.Cells[4].Value.ToString();
 
                 FomDataGridView.Instancia.FilaSeleccionada = null;
             }
@@ -141,7 +168,7 @@ namespace LibroApp
             int count = 0;
 
             //Opcion por Defecto
-            ComboBoxItem OpcionDefecto = new ComboBoxItem();
+            /*ComboBoxItem OpcionDefecto = new ComboBoxItem();
             OpcionDefecto.Text = "Seleccione una Opcion";
             OpcionDefecto.Value = null;
 
@@ -149,30 +176,39 @@ namespace LibroApp
             CbxAutor.SelectedItem = OpcionDefecto;
 
             CbxEditorial.Items.Add(OpcionDefecto);
-            CbxEditorial.SelectedItem = OpcionDefecto;
+            CbxEditorial.SelectedItem = OpcionDefecto;*/
 
-            //Autores
-            foreach (string autor in Autores)
-            {
-                count++;
-                ComboBoxItem opcionAutor = new ComboBoxItem();
-                opcionAutor.Text = autor;
-                opcionAutor.Value = count;
 
-                CbxAutor.Items.Add(opcionAutor);
-            }
-            //Editorial
-            foreach (string editorial in Editoriales)
-            {
-                count++;
-                ComboBoxItem opcioneditorial = new ComboBoxItem();
-                opcioneditorial.Text = editorial;
-                opcioneditorial.Value = count;
+            CbxAutor.DataSource = service.GetAllAutor();
+            CbxAutor.DisplayMember = "Nombre";
+            CbxAutor.ValueMember = "Codigo";
 
-                CbxEditorial.Items.Add(opcioneditorial);
-            }
+            CbxEditorial.DataSource = service.GetallEditoriales();
+            CbxEditorial.DisplayMember = "Nombre";
+            CbxEditorial.ValueMember = "Codigo";
+
+            /*            //Autores
+                       foreach (string autor in Autores)
+                       {
+                           count++;
+                           ComboBoxItem opcionAutor = new ComboBoxItem();
+                           opcionAutor.Text = autor;
+                           opcionAutor.Value = count;
+
+                           CbxAutor.Items.Add(opcionAutor);
+                       }
+                       //Editorial
+                       foreach (string editorial in Editoriales)
+                       {
+                           count++;
+                           ComboBoxItem opcioneditorial = new ComboBoxItem();
+                           opcioneditorial.Text = editorial;
+                           opcioneditorial.Value = count;
+
+                           CbxEditorial.Items.Add(opcioneditorial);
+                       } */
         }
-        
+
         #endregion
     }
 }

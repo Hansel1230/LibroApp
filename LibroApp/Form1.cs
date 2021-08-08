@@ -3,6 +3,8 @@ using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Database;
+
 
 namespace LibroApp
 {
@@ -13,8 +15,9 @@ namespace LibroApp
         #endregion
 
         public string TipoMantenimiento { get; set; }
-        private BibliotecaService service;
 
+        private BibliotecaService service;
+        
         private FomPantallaPrincipal()
         {
             InitializeComponent();
@@ -23,6 +26,8 @@ namespace LibroApp
             SqlConnection connection = new SqlConnection(connectionString);
 
             service = new BibliotecaService(connection);
+
+            
         }
 
         #region Eventos
@@ -30,12 +35,13 @@ namespace LibroApp
         {
             TipoMantenimiento = "Editoriales";
             moverADGV();
-
+            service.TipoDelete = TipoMantenimiento;
         }
         private void BtnAutores_Click(object sender, EventArgs e)
         {
             TipoMantenimiento = "Autores";
             moverADGV();
+            service.TipoDelete = TipoMantenimiento;
         }
         private void BtnLibros_Click(object sender, EventArgs e)
         {
@@ -43,6 +49,7 @@ namespace LibroApp
             {
                 TipoMantenimiento = "Libros";
                 moverADGV();
+                service.TipoDelete = TipoMantenimiento;
             }
             else
             {

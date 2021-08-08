@@ -112,7 +112,17 @@ namespace LibroApp
             if (FomPantallaPrincipal.Instancia.TipoMantenimiento == "Autores")
             {
                 // eliminar autores
-                service.EliminarAutor(Convert.ToInt16(FilaSeleccionada.Cells[0].Value));
+                int AutorId = Convert.ToInt16(FilaSeleccionada.Cells[0].Value);
+
+                if (service.ValidarReferenciaLibro("Autor",AutorId))
+                {
+                    service.EliminarAutor(AutorId);
+                }
+                else
+                {
+                    MessageBox.Show("Este Autor esta relacionado a uno o varios libros, debe borrar el libro asociado", "Advertencia");
+                }
+
                 
             }
             else if (FomPantallaPrincipal.Instancia.TipoMantenimiento == "Libros")
@@ -124,7 +134,18 @@ namespace LibroApp
             else
             {
                 // eliminar editorial
-                service.EliminarEditorial(Convert.ToInt16(FilaSeleccionada.Cells[0].Value));
+                int EditorialId = Convert.ToInt16(FilaSeleccionada.Cells[0].Value);
+
+                if (service.ValidarReferenciaLibro("Editorial", EditorialId))
+                {
+                    service.EliminarEditorial(EditorialId);
+                }
+                else
+                {
+                    MessageBox.Show("Este Editorial esta relacionado a uno o varios libros, debe borrar el libro asociado", "Advertencia");
+                }
+
+
                 
             }
             Deselect(); 

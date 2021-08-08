@@ -7,6 +7,8 @@ namespace BusinesLayer
 {
     public class BibliotecaService
     {
+        public string TipoDelete { get; set; }
+
         private RepositorioBiblioteca repositorio;
 
         public BibliotecaService(SqlConnection conection)
@@ -98,6 +100,11 @@ namespace BusinesLayer
         public bool ValidarLibro()
         {
             return repositorio.ValidarLibro();
+        }
+
+        public bool ValidarReferenciaLibro(string tabla, int tablaId)
+        {
+            return repositorio.ValidarReferenciaLibro(tabla,tablaId);
         }
         #endregion
     }
